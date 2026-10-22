@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Mục Đồ Án Môn Học | Foundation of AI</title>
+  <meta name="description" content="Danh mục tổng hợp các đồ án môn học Cơ sở Trí tuệ Nhân tạo (Foundation of AI)">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="index-body">
+
+  <div class="index-wrapper">
+    <!-- Header / Hero Section Tối Giản -->
+    <header class="index-hero">
+      <div class="hero-info">
+        <span class="hero-badge">Đồ Án Môn Học</span>
+        <h1 class="hero-title">Cơ Sở Trí Tuệ Nhân Tạo</h1>
+        <p class="hero-subtitle">
+          Sinh viên thực hiện: <strong>Nguyễn Văn A</strong> &bull; Lớp: <strong>KHTN - CS401</strong><br>
+          Bộ sưu tập các đồ án nghiên cứu, thực nghiệm thuật toán tìm kiếm, thị giác máy tính và học tăng cường.
+        </p>
+      </div>
+
+      <!-- Quick Action / Social Links -->
+      <nav class="hero-links" aria-label="Liên kết cá nhân">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hero-link-btn" title="GitHub Profile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="mailto:student@university.edu.vn" class="hero-link-btn" title="Gửi Email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          Liên hệ
+        </a>
+      </nav>
+    </header>
+
+    <!-- Main Section: Grid Các Thẻ Project (Tất cả vị trí trên thẻ đều click được) -->
+    <main>
+      <section class="project-grid" aria-label="Danh sách đồ án">
+        
+        <!-- Project Card 1: A* Search Algorithm -->
+        <a href="projects/project-1.html" class="project-card" aria-label="Xem chi tiết đồ án Giải Thuật Tìm Kiếm & Pacman Agent">
+          <div class="card-thumbnail-box">
+            <img src="assets/images/project-1-thumb.svg" alt="Minh họa giải thuật tìm kiếm A*">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">01. Giải Thuật Tìm Kiếm &amp; Pacman Agent</h2>
+            <p class="card-desc">
+              Xây dựng các giải thuật tìm kiếm không mù (DFS, BFS, UCS) và giải thuật có thông tin A* với hàm Heuristic Manhattan để dẫn đường tối ưu cho Pacman.
+            </p>
+            <div class="card-action">
+              <span>Xem chi tiết đồ án</span>
+              <span class="arrow">&rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project Card 2: CNN Image Classification -->
+        <a href="projects/project-2.html" class="project-card" aria-label="Xem chi tiết đồ án Phân Loại Hình Ảnh Y Tế Với Deep CNN">
+          <div class="card-thumbnail-box">
+            <img src="assets/images/project-2-thumb.svg" alt="Minh họa kiến trúc CNN phân loại hình ảnh">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">02. Phân Loại Hình Ảnh Y Tế Với Deep CNN</h2>
+            <p class="card-desc">
+              Thiết kế mô hình Convolutional Neural Network sử dụng PyTorch để chẩn đoán tổn thương phổi từ ảnh X-quang, đạt độ chính xác 98.4% trên tập kiểm thử.
+            </p>
+            <div class="card-action">
+              <span>Xem chi tiết đồ án</span>
+              <span class="arrow">&rarr;</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Project Card 3: Reinforcement Learning GridWorld -->
+        <a href="projects/project-3.html" class="project-card" aria-label="Xem chi tiết đồ án Q-Learning Agent Trong Môi Trường GridWorld">
+          <div class="card-thumbnail-box">
+            <img src="assets/images/project-3-thumb.svg" alt="Minh họa tác tử học tăng cường Q-Learning">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">03. Tác Tử Học Tăng Cường Trong GridWorld</h2>
+            <p class="card-desc">
+              Ứng dụng thuật toán Q-Learning và Value Iteration giúp tác tử tự học cách né bẫy, vượt chướng ngại vật và tối đa hóa điểm số tích lũy sau 500 chu kỳ thử nghiệm.
+            </p>
+            <div class="card-action">
+              <span>Xem chi tiết đồ án</span>
+              <span class="arrow">&rarr;</span>
+            </div>
+          </div>
+        </a>
+
+      </section>
+    </main>
+  </div>
+
+</body>
+</html>

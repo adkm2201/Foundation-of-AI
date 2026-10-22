@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đồ Án 2: Phân Loại Hình Ảnh Y Tế Với Deep CNN | Foundation of AI</title>
+  <meta name="description" content="Xây dựng mạng tích chập sâu Deep Convolutional Neural Network để phân loại ảnh X-quang lồng ngực">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="project-detail-layout">
+
+  <!-- Container chính căn lề trái, khoảng cách nhỏ gọn -->
+  <main class="project-detail-container">
+    
+    <!-- Nút quay lại danh mục -->
+    <nav class="back-nav" aria-label="Điều hướng quay lại">
+      <a href="../index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Quay lại danh mục đồ án
+      </a>
+    </nav>
+
+    <!-- Thẻ nội dung chi tiết -->
+    <article class="detail-card">
+      
+      <!-- Header đồ án -->
+      <header class="detail-header">
+        <h1 class="detail-title">02. Phân Loại Hình Ảnh Y Tế Với Mạng Nơ-ron Tích Chập Sâu (Deep CNN)</h1>
+        
+        <!-- Metadata chi tiết -->
+        <div class="detail-meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Môn học &amp; Học kỳ</span>
+            <span>Cơ sở Trí tuệ Nhân tạo - Học kỳ 1, 2024</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Ngày hoàn thành</span>
+            <span>28/11/2024</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Thành viên &amp; Vai trò</span>
+            <span>Nguyễn Văn A (Mô hình hóa &amp; Huấn luyện PyTorch)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Giảng viên hướng dẫn</span>
+            <span>PGS. TS. Lê Hoàng C</span>
+          </div>
+        </div>
+
+      </header>
+
+      <!-- Nội dung kết quả đạt được -->
+      <div class="detail-body">
+        
+        <!-- 1. Bài toán đặt ra -->
+        <section class="detail-section">
+          <h2>1. Bài Toán Đặt Ra (Problem Formulation)</h2>
+          <p>
+            Chẩn đoán sớm các tổn thương phổi thông qua phim chụp X-quang là một bước sàng lọc y khoa có vai trò sống còn nhưng đòi hỏi nhiều thời gian và kinh nghiệm chuyên sâu của bác sĩ chẩn đoán hình ảnh.
+          </p>
+          <p>
+            Mục tiêu của đề tài là xây dựng hệ thống phân loại nhị phân tự động (Bình thường vs. Bệnh lý viêm phổi) với độ nhạy (Sensitivity/Recall) đạt trên 98% nhằm hạn chế tối đa nguy cơ bỏ sót ca bệnh (False Negatives), đồng thời đảm bảo mô hình hoạt động ổn định và có khả năng giải thích trực quan (Explainable AI qua Grad-CAM).
+          </p>
+        </section>
+
+        <!-- Khối liên kết nội dung con của project (Ngay tại nội dung trình bày) -->
+        <section class="child-content-box" aria-label="Tài liệu chuyên sâu nội bộ">
+          <div class="child-content-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Tài liệu &amp; Nội dung chuyên sâu của đồ án (Sub-contents):
+          </div>
+          <div class="child-content-list">
+            <a href="project-2-contents/dataset-pipeline.html" class="child-link-item">
+              <span>📄 Quy trình thu thập, cân bằng nhãn &amp; Tiền xử lý dữ liệu ảnh X-quang</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+            <a href="project-2-contents/model-evaluation.html" class="child-link-item">
+              <span>📊 Báo cáo đánh giá chi tiết: Đường cong ROC, AUC &amp; Phân tích lỗi sai sót</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- 2. Phương pháp tiếp cận & Giải pháp -->
+        <section class="detail-section">
+          <h2>2. Phương Pháp Tiếp Cận &amp; Kiến Trúc Mô Hình</h2>
+          <p>
+            Nhóm tiến hành thử nghiệm và đối sánh giữa mô hình CNN tùy chỉnh xây từ đầu (Custom 5-Layer CNN) và phương pháp học chuyển giao (Transfer Learning với mạng ResNet-50 tiền huấn luyện trên ImageNet):
+          </p>
+          <ul>
+            <li><strong>Xử lý mất cân bằng dữ liệu:</strong> Áp dụng kỹ thuật tăng cường ảnh (Data Augmentation: xoay góc nhẹ &plusmn;10&deg;, điều chỉnh tương phản CLAHE, zoom ngẫu nhiên) và sử dụng hàm mất mát Weighted Cross-Entropy Loss.</li>
+            <li><strong>Chiến lược huấn luyện:</strong> Sử dụng bộ tối ưu hóa AdamW với hệ số Learning Rate ban đầu <code>1e-4</code> kết hợp bộ lập lịch giảm tốc độ học Cosine Annealing with Warm Restarts sau mỗi 10 epoch.</li>
+            <li><strong>Kỹ thuật chống Overfitting:</strong> Chèn thêm các lớp Dropout (tỉ lệ 0.4), Batch Normalization sau mỗi khối tích chập và Weight Decay L2 (1e-5).</li>
+          </ul>
+        </section>
+
+        <!-- 3. Sơ đồ minh họa trực quan (Figure + Caption) -->
+        <figure class="detail-figure">
+          <img src="../assets/images/project-2-diagram.svg" alt="Biểu đồ đánh giá quá trình hội tụ và ma trận nhầm lẫn của mạng CNN">
+          <figcaption>
+            <strong>Hình 2.1:</strong> Quá trình hội tụ độ chính xác (Accuracy)/hàm mất mát (Loss) qua 40 epoch và kết quả ma trận nhầm lẫn (Confusion Matrix) chi tiết trên 3,000 ảnh tập kiểm thử độc lập.
+          </figcaption>
+        </figure>
+
+        <!-- 4. Kết quả thực nghiệm & Đánh giá -->
+        <section class="detail-section">
+          <h2>3. Kết Quả Thực Nghiệm &amp; Đánh Giá</h2>
+          <p>
+            Sau 40 chu kỳ huấn luyện trên tập dữ liệu gồm 5,856 ảnh chụp X-quang lồng ngực:
+          </p>
+          <ul>
+            <li><strong>Độ chính xác toàn diện (Accuracy):</strong> Đạt <strong>98.4%</strong> trên tập kiểm thử test set (so với 89.2% của mạng Custom CNN ban đầu).</li>
+            <li><strong>Độ nhạy sàng lọc (Sensitivity / Recall):</strong> Đạt mức ấn tượng <strong>99.1%</strong> (chỉ có 14 ca dương tính bị đoán nhầm thành âm tính trong tổng số 1,500 ca bệnh).</li>
+            <li><strong>F1-Score tổng hợp:</strong> Đạt <strong>0.989</strong>, chứng minh mô hình hoàn toàn tin cậy và không bị thiên lệch nhãn.</li>
+          </ul>
+        </section>
+
+        <!-- 5. Tài nguyên & Liên kết liên quan -->
+        <section class="detail-section">
+          <h2>4. Tài Nguyên &amp; Liên Kết Liên Quan</h2>
+          <p>Tất cả mã nguồn, trọng số mô hình và sổ tay Jupyter Notebook có thể truy cập qua các liên kết bên dưới:</p>
+          
+          <div class="resource-grid">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="resource-btn primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              GitHub Source Code
+            </a>
+
+            <a href="#kaggle-notebook" class="resource-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+              Google Colab / Kaggle Notebook
+            </a>
+
+            <a href="#pdf-report" class="resource-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              Báo Cáo Toàn Văn (PDF)
+            </a>
+
+            <a href="#model-weights" class="resource-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Tải Trọng Số Model (.pth)
+            </a>
+          </div>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Nút Icon Ngôi Nhà Cố Định Quay Về Trang Chủ (Góc Dưới Phải) -->
+  <a href="../index.html" class="floating-home-btn" aria-label="Quay về trang chủ" title="Quay về trang chủ">
+    <svg viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+  </a>
+
+</body>
+</html>

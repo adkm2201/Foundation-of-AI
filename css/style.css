@@ -1,0 +1,705 @@
+/* ==========================================================================
+   CSS DÙNG CHUNG CHO PORTFOLIO ĐỒ ÁN MÔN HỌC (FOUNDATION OF AI)
+   Thiết kế: Ultra High Contrast, Crisp Borders, Font +2, Centered Layout
+   ========================================================================== */
+
+/* 1. CSS VARIABLES (HỆ THỐNG MÀU SẮC TƯƠNG PHẢN CAO, ĐƯỜNG VIỀN SẮC NÉT) */
+:root {
+  /* Bảng màu phân định rõ rệt (High Contrast & Clear Boundaries) */
+  --bg-page: #f1f5f9;           /* Nền trang Slate-100 (phân tách dứt khoát với thẻ trắng) */
+  --bg-surface: #ffffff;        /* Nền thẻ / container (trắng tinh khiết) */
+  --bg-subtle: #e2e8f0;         /* Nền phụ trợ / header bảng / callout (Slate-200 rõ nét) */
+  
+  --text-main: #020617;         /* Chữ chính, tiêu đề (Slate-950: đen đậm, độ tương phản tuyệt đối) */
+  --text-muted: #1e293b;        /* Chữ nội dung đọc (Slate-800: đậm, rõ nét, dễ đọc) */
+  --text-light: #475569;        /* Chữ phụ, ngày tháng, chú thích (Slate-600) */
+  
+  --color-primary: #1d4ed8;      /* Xanh Cobalt đậm đà (blue-700) */
+  --color-primary-hover: #1e3a8a;/* Xanh Navy khi hover (blue-900) */
+  --color-accent: #0369a1;       /* Xanh biển đậm (sky-700) */
+  --color-success: #047857;      /* Xanh lá đậm thành công (emerald-700) */
+  
+  /* Đường viền dứt khoát, độ tương phản cao, phân biệt rõ ràng */
+  --border-color: #64748b;       /* Đường viền tiêu chuẩn (Slate-500: phân biệt rõ rệt) */
+  --border-dark: #334155;        /* Đường viền nhấn đậm (Slate-700) */
+  --border-focus: #1d4ed8;       /* Viền khi focus / hover */
+  --border-width: 2px;           /* Độ dày viền rõ nét */
+  
+  /* Bo góc & Đổ bóng sắc nét */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 2px 4px 0 rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 8px -1px rgba(15, 23, 42, 0.12), 0 2px 4px -2px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.16), 0 6px 10px -4px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 16px 32px -4px rgba(15, 23, 42, 0.2), 0 8px 14px -6px rgba(15, 23, 42, 0.12);
+  
+  /* Phông chữ */
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  
+  /* Chuyển động nhanh, dứt khoát */
+  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. RESET CƠ BẢN & TĂNG FONT CHỮ THÊM 2 (BASE 18PX) */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 18px; /* Tăng font chữ thêm 2 (từ 16px lên 18px) theo yêu cầu */
+  line-height: 1.6;
+  color: var(--text-main);
+  background-color: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3. TYPOGRAPHY CHUNG */
+h1, h2, h3, h4 {
+  color: var(--text-main);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   4. BỐ CỤC TRANG CHỦ (INDEX PAGE - VỪA VẶN MÀN HÌNH, NHIỀU KHOẢNG TRỐNG)
+   ========================================================================== */
+.index-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 1.5rem;
+  background-color: var(--bg-page);
+}
+
+.index-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+/* Hero Section tối giản, viền phân tách rõ rệt */
+.index-hero {
+  border-bottom: 2.5px solid var(--border-color);
+  padding-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.hero-info {
+  max-width: 680px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.825rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #dbeafe;
+  color: var(--color-primary);
+  border: 1.5px solid #93c5fd;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.6rem;
+}
+
+.hero-title {
+  font-size: 2.1rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-main);
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.hero-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.hero-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--text-main);
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.hero-link-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--bg-subtle);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Grid danh sách Project Cards (3 thẻ ngang) */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Thẻ Project Card - Viền sắc nét 2px, toàn bộ thẻ click được */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+
+.project-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Khung Thumbnail */
+.card-thumbnail-box {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #0f172a;
+  border-bottom: 2px solid var(--border-color);
+  overflow: hidden;
+  position: relative;
+}
+
+.card-thumbnail-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .card-thumbnail-box img {
+  transform: scale(1.03);
+}
+
+/* Nội dung bên trong Card */
+.card-body {
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-main);
+  transition: color 0.2s ease;
+}
+
+.project-card:hover .card-title {
+  color: var(--color-primary);
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+  text-align: justify;
+  text-justify: distribute;
+  text-justify: inter-character;
+  text-align-last: left;
+}
+
+.card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-top: auto;
+}
+
+.project-card:hover .card-action {
+  color: var(--color-primary-hover);
+}
+
+.card-action span.arrow {
+  transition: transform 0.2s ease;
+}
+
+.project-card:hover .card-action span.arrow {
+  transform: translateX(5px);
+}
+
+/* ==========================================================================
+   5. BỐ CỤC TRANG CHI TIẾT (PROJECT DETAIL & NỘI DUNG CON)
+   Yêu cầu:
+   - Nội dung các projects CĂN GIỮA MÀN HÌNH
+   - Khoảng cách giữa nội dung trình bày và lề trái của container THẬT NHỎ
+   - Viền rõ ràng để phân biệt
+   ========================================================================== */
+.project-detail-layout {
+  background-color: var(--bg-page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CĂN GIỮA TOÀN BỘ TRANG TRÊN MÀN HÌNH */
+  width: 100%;
+}
+
+/* Container chính căn giữa màn hình (Rộng thêm 10%: từ 1040px lên 1150px) */
+.project-detail-container {
+  width: 100%;
+  max-width: 1150px;
+  margin-left: auto;
+  margin-right: auto; /* CĂN GIỮA MÀN HÌNH */
+  padding: 1.5rem 1rem 4.5rem 1rem;
+  text-align: left;
+}
+
+/* Thanh điều hướng quay lại danh mục */
+.back-nav {
+  margin-bottom: 1.25rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--text-main);
+  padding: 0.45rem 0.85rem;
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.back-link:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background-color: var(--bg-subtle);
+  transform: translateX(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Khối nội dung chính (Card bao bọc có viền 2px rõ nét, lề trái nhỏ) */
+.detail-card {
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-color); /* Viền rõ ràng phân biệt */
+  border-radius: var(--radius-md);
+  /* Khoảng cách giữa nội dung trình bày và lề trái của container thật nhỏ (1rem / 18px) */
+  padding: 1.5rem 1.75rem 1.75rem 1rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+/* Header trang chi tiết */
+.detail-header {
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-title {
+  font-size: 1.95rem;
+  color: var(--text-main);
+  margin-bottom: 0.6rem;
+}
+
+/* Meta Data: Ngày tháng, Thành viên, Tags công nghệ */
+.detail-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.75rem;
+  background-color: var(--bg-subtle);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.meta-item {
+  font-size: 0.925rem;
+  color: var(--text-muted);
+}
+
+.meta-label {
+  font-weight: 800;
+  color: var(--text-main);
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+/* Tags công nghệ (hiển thị đầy đủ ở trang chi tiết) */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.tech-tag {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background-color: #e2e8f0;
+  color: var(--text-main);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+/* Thân bài viết mô tả kết quả (Căn đều văn bản kiểu Distributed - phân bố đều ký tự) */
+.detail-body {
+  text-align: justify;
+  text-justify: distribute;
+  text-justify: inter-character;
+  text-align-last: left;
+}
+
+.detail-section {
+  margin-bottom: 1.75rem;
+}
+
+.detail-section h2 {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.detail-section p {
+  margin-bottom: 0.85rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  text-align: justify;
+  text-justify: distribute;
+  text-justify: inter-character;
+  text-align-last: left;
+}
+
+.detail-section ul {
+  margin-left: 1.15rem; /* Căn sát mép lề trái theo yêu cầu */
+  margin-bottom: 1rem;
+}
+
+.detail-section li {
+  margin-bottom: 0.45rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  text-align: justify;
+  text-justify: distribute;
+  text-justify: inter-character;
+  text-align-last: left;
+}
+
+/* Khối liên kết nội dung con của project (Nằm ngay tại nội dung trình bày) */
+.child-content-box {
+  background-color: #eff6ff; /* Nền xanh dịu */
+  border: 2px solid #3b82f6;  /* Viền xanh phân định dứt khoát */
+  border-left: 6px solid var(--color-primary); /* Cạnh trái nhấn mạnh */
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.child-content-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.child-content-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.child-link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  padding: 0.45rem 0.75rem;
+  background-color: var(--bg-surface);
+  border: 1.5px solid #93c5fd;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.child-link-item:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Khung hình ảnh / sơ đồ minh họa trực quan (Figure + Caption có viền 2px) */
+.detail-figure {
+  margin: 1.5rem 0;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.detail-figure img {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.detail-figure figcaption {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-muted);
+  background-color: var(--bg-subtle);
+  border-top: 1px solid var(--border-color);
+  text-align: justify;
+  text-justify: distribute;
+  text-justify: inter-character;
+  text-align-last: left;
+}
+
+/* Khối Tài nguyên & Liên kết ngoài (Resources & Action Buttons) */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.resource-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--text-main);
+  background-color: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.resource-btn:hover {
+  color: #ffffff;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.resource-btn.primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.resource-btn.primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+/* ==========================================================================
+   6. NÚT ICON NGÔI NHÀ QUAY VỀ TRANG CHỦ (FLOATING HOME BUTTON)
+   Nằm cố định ở góc dưới phải của tất cả các trang con
+   ========================================================================== */
+.floating-home-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  background-color: #020617; /* Đen đậm sắc nét */
+  color: #ffffff;
+  border: 2.5px solid var(--border-dark);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.floating-home-btn svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s ease;
+}
+
+.floating-home-btn:hover {
+  background-color: var(--color-primary);
+  border-color: #bfdbfe;
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 14px 28px -2px rgba(29, 78, 216, 0.45);
+}
+
+.floating-home-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Tooltip hiển thị khi hover vào nút ngôi nhà */
+.floating-home-btn::before {
+  content: "Về trang chủ";
+  position: absolute;
+  right: 64px;
+  background-color: #020617;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: var(--transition);
+  border: 1.5px solid #475569;
+  box-shadow: var(--shadow-md);
+}
+
+.floating-home-btn:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN (TƯƠNG THÍCH DESKTOP, TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 960px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-detail-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 17px;
+  }
+
+  .index-body {
+    justify-content: flex-start;
+    padding: 1.5rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .project-detail-container {
+    padding: 1rem 0.5rem 4rem 0.5rem;
+  }
+
+  .detail-card {
+    padding: 1.15rem 1rem 1.25rem 0.75rem;
+  }
+
+  .floating-home-btn {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    width: 48px;
+    height: 48px;
+  }
+
+  .floating-home-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+}

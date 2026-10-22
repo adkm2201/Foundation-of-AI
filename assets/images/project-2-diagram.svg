@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="diagBg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="480" fill="url(#diagBg2)" stroke="#64748b" stroke-width="2.5" rx="8"/>
+
+  <rect x="0" y="0" width="900" height="60" fill="#0f172a" rx="8 8 0 0"/>
+  <text x="30" y="38" fill="#f8fafc" font-family="'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="700">ĐÁNH GIÁ MÔ HÌNH CNN: ĐƯỜNG CONG HỘI TỤ VÀ MA TRẬN NHẦM LẪN</text>
+  <text x="750" y="37" fill="#94a3b8" font-family="monospace" font-size="13">PyTorch 2.2 / ResNet</text>
+
+  <!-- Left: Training & Validation Accuracy Graph -->
+  <g transform="translate(50, 95)">
+    <text x="0" y="0" fill="#1e293b" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700">1. Quá trình huấn luyện (Epochs vs Accuracy / Loss)</text>
+
+    <!-- Axes -->
+    <line x1="45" y1="25" x2="45" y2="210" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="45" y1="210" x2="380" y2="210" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- Y Labels -->
+    <text x="38" y="35" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">100%</text>
+    <text x="38" y="80" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">75%</text>
+    <text x="38" y="125" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">50%</text>
+    <text x="38" y="170" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">25%</text>
+    <text x="38" y="213" fill="#64748b" font-family="monospace" font-size="10" text-anchor="end">0%</text>
+
+    <!-- X Labels -->
+    <text x="45" y="228" fill="#64748b" font-family="monospace" font-size="10">Ep 1</text>
+    <text x="125" y="228" fill="#64748b" font-family="monospace" font-size="10">Ep 10</text>
+    <text x="210" y="228" fill="#64748b" font-family="monospace" font-size="10">Ep 20</text>
+    <text x="295" y="228" fill="#64748b" font-family="monospace" font-size="10">Ep 30</text>
+    <text x="375" y="228" fill="#64748b" font-family="monospace" font-size="10">Ep 40</text>
+
+    <!-- Accuracy Curve (Blue) -->
+    <path d="M 45 180 Q 90 90 140 60 T 230 45 T 320 38 T 380 34" fill="none" stroke="#2563eb" stroke-width="3"/>
+
+    <!-- Validation Curve (Green) -->
+    <path d="M 45 190 Q 90 105 140 75 T 230 55 T 320 45 T 380 40" fill="none" stroke="#10b981" stroke-width="2.5" stroke-dasharray="5 3"/>
+
+    <!-- Loss Curve (Red) -->
+    <path d="M 45 50 Q 90 140 140 170 T 230 190 T 320 198 T 380 202" fill="none" stroke="#ef4444" stroke-width="2"/>
+
+    <!-- Legend -->
+    <g transform="translate(100, 255)">
+      <line x1="0" y1="10" x2="20" y2="10" stroke="#2563eb" stroke-width="3"/>
+      <text x="26" y="14" fill="#334155" font-family="'Segoe UI', sans-serif" font-size="11">Train Acc (99.1%)</text>
+
+      <line x1="140" y1="10" x2="160" y2="10" stroke="#10b981" stroke-width="2.5" stroke-dasharray="4 2"/>
+      <text x="166" y="14" fill="#334155" font-family="'Segoe UI', sans-serif" font-size="11">Val Acc (98.4%)</text>
+
+      <line x1="280" y1="10" x2="300" y2="10" stroke="#ef4444" stroke-width="2"/>
+      <text x="306" y="14" fill="#334155" font-family="'Segoe UI', sans-serif" font-size="11">Loss (0.042)</text>
+    </g>
+  </g>
+
+  <!-- Right: Confusion Matrix -->
+  <g transform="translate(480, 95)">
+    <text x="0" y="0" fill="#1e293b" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700">2. Ma trận nhầm lẫn (Confusion Matrix trên tập Test)</text>
+
+    <!-- Matrix Grid (2x2) -->
+    <g transform="translate(60, 40)">
+      <!-- Column headers -->
+      <text x="80" y="-12" fill="#475569" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" text-anchor="middle">Dự đoán: Bình thường</text>
+      <text x="230" y="-12" fill="#475569" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" text-anchor="middle">Dự đoán: Bệnh lý</text>
+
+      <!-- Row headers -->
+      <text x="-15" y="70" fill="#475569" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" text-anchor="end">Thực tế: Bình thường</text>
+      <text x="-15" y="170" fill="#475569" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" text-anchor="end">Thực tế: Bệnh lý</text>
+
+      <!-- TP Cell -->
+      <rect x="10" y="10" width="140" height="90" fill="#dbeafe" stroke="#2563eb" stroke-width="2" rx="4"/>
+      <text x="80" y="55" fill="#1e40af" font-family="monospace" font-size="24" font-weight="bold" text-anchor="middle">1,482</text>
+      <text x="80" y="80" fill="#3b82f6" font-family="'Segoe UI', sans-serif" font-size="11" text-anchor="middle">True Negative (98.8%)</text>
+
+      <!-- FP Cell -->
+      <rect x="160" y="10" width="140" height="90" fill="#fee2e2" stroke="#f87171" stroke-width="1.5" rx="4"/>
+      <text x="230" y="55" fill="#b91c1c" font-family="monospace" font-size="24" font-weight="bold" text-anchor="middle">18</text>
+      <text x="230" y="80" fill="#ef4444" font-family="'Segoe UI', sans-serif" font-size="11" text-anchor="middle">False Positive (1.2%)</text>
+
+      <!-- FN Cell -->
+      <rect x="10" y="110" width="140" height="90" fill="#fee2e2" stroke="#f87171" stroke-width="1.5" rx="4"/>
+      <text x="80" y="155" fill="#b91c1c" font-family="monospace" font-size="24" font-weight="bold" text-anchor="middle">14</text>
+      <text x="80" y="180" fill="#ef4444" font-family="'Segoe UI', sans-serif" font-size="11" text-anchor="middle">False Negative (0.9%)</text>
+
+      <!-- TN Cell -->
+      <rect x="160" y="110" width="140" height="90" fill="#dcfce7" stroke="#10b981" stroke-width="2" rx="4"/>
+      <text x="230" y="155" fill="#065f46" font-family="monospace" font-size="24" font-weight="bold" text-anchor="middle">1,486</text>
+      <text x="230" y="180" fill="#059669" font-family="'Segoe UI', sans-serif" font-size="11" text-anchor="middle">True Positive (99.1%)</text>
+    </g>
+
+    <!-- Key Metrics underneath -->
+    <g transform="translate(60, 270)">
+      <rect width="300" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="150" y="23" fill="#0f172a" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" text-anchor="middle">
+        Độ nhạy (Sensitivity): <tspan fill="#059669">99.1%</tspan> | F1-Score: <tspan fill="#1e40af">0.989</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

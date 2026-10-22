@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đồ Án 1: Giải Thuật Tìm Kiếm & Pacman Agent | Foundation of AI</title>
+  <meta name="description" content="Nghiên cứu và triển khai các thuật toán tìm kiếm DFS, BFS, UCS, A* cho tác tử Pacman">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="project-detail-layout">
+
+  <!-- Container chính căn lề trái, padding nhỏ gọn -->
+  <main class="project-detail-container">
+    
+    <!-- Nút quay lại danh mục -->
+    <nav class="back-nav" aria-label="Điều hướng quay lại">
+      <a href="../index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Quay lại danh mục đồ án
+      </a>
+    </nav>
+
+    <!-- Thẻ nội dung chi tiết -->
+    <article class="detail-card">
+      
+      <!-- Header đồ án -->
+      <header class="detail-header">
+        <h1 class="detail-title">01. Giải Thuật Tìm Kiếm &amp; Tác Tử Pacman Tự Hành</h1>
+        
+        <!-- Metadata chi tiết -->
+        <div class="detail-meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Môn học &amp; Học kỳ</span>
+            <span>Cơ sở Trí tuệ Nhân tạo - Học kỳ 1, 2024</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Ngày hoàn thành</span>
+            <span>15/10/2024</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Thành viên &amp; Vai trò</span>
+            <span>Nguyễn Văn A (Trưởng nhóm - Cài đặt A* & Heuristics)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Giảng viên hướng dẫn</span>
+            <span>TS. Trần Văn B</span>
+          </div>
+        </div>
+
+      </header>
+
+      <!-- Nội dung kết quả đạt được -->
+      <div class="detail-body">
+        
+        <!-- 1. Bài toán đặt ra -->
+        <section class="detail-section">
+          <h2>1. Bài Toán Đặt Ra (Problem Formulation)</h2>
+          <p>
+            Trong môi trường mê cung Pacman (Pacman GridWorld), tác tử cần tìm được đường đi ngắn nhất từ vị trí khởi đầu đến các hạt thức ăn (Food Pellets) và góc đích an toàn, đồng thời né tránh các chướng ngại vật dạng tường tĩnh cũng như ma tuần tra.
+          </p>
+          <p>
+            Mục tiêu chính là tối thiểu hóa tổng chi phí đường đi (Path Cost), giảm thiểu số lượng trạng thái phải duyệt trong không gian tìm kiếm (Nodes Expanded), và đảm bảo thuật toán không rơi vào các vòng lặp trạng thái vô tận.
+          </p>
+        </section>
+
+        <!-- Khối liên kết nội dung con của project (Ngay tại nội dung trình bày) -->
+        <section class="child-content-box" aria-label="Tài liệu chuyên sâu nội bộ">
+          <div class="child-content-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Tài liệu &amp; Nội dung chuyên sâu của đồ án (Sub-contents):
+          </div>
+          <div class="child-content-list">
+            <a href="project-1-contents/system-architecture.html" class="child-link-item">
+              <span>📄 Chi tiết thiết kế Kiến trúc hệ thống &amp; Cấu trúc dữ liệu Frontier</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+            <a href="project-1-contents/benchmark-results.html" class="child-link-item">
+              <span>📊 Báo cáo kiểm thử hiệu năng chi tiết trên các loại bản đồ (BigMaze, OpenMaze)</span>
+              <span class="arrow">&rarr;</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- 2. Phương pháp tiếp cận & Giải pháp -->
+        <section class="detail-section">
+          <h2>2. Phương Pháp Tiếp Cận &amp; Giải Pháp Cài Đặt</h2>
+          <p>
+            Đồ án tiếp cận bài toán qua hai giai đoạn thử nghiệm:
+          </p>
+          <ul>
+            <li><strong>Tìm kiếm mù (Uninformed Search):</strong> Triển khai Depth-First Search (DFS), Breadth-First Search (BFS) và Uniform-Cost Search (UCS) bằng hàng đợi ưu tiên (Priority Queue) kết hợp tập hợp `closed_set` để tránh duyệt lại các trạng thái đã thăm.</li>
+            <li><strong>Tìm kiếm có thông tin (Informed Search - A*):</strong> Phát triển thuật toán A* với hàm đánh giá <code>f(n) = g(n) + h(n)</code>. Nhóm đã thử nghiệm hai hàm Heuristic:
+              <ul>
+                <li><em>Khoảng cách Manhattan (L1 Norm):</em> Đảm bảo tính chấp nhận được (Admissible) và nhất quán (Consistent), thích hợp cho lưới di chuyển 4 hướng.</li>
+                <li><em>Khoảng cách Euclidean (L2 Norm):</em> Dùng làm đối chứng để đo lường độ chặt chẽ của ước lượng chi phí.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 3. Sơ đồ minh họa trực quan (Figure + Caption) -->
+        <figure class="detail-figure">
+          <img src="../assets/images/project-1-diagram.svg" alt="Sơ đồ so sánh hiệu năng các giải thuật tìm kiếm A*, BFS, DFS">
+          <figcaption>
+            <strong>Hình 1.1:</strong> Biểu đồ so sánh định lượng giữa A* (Heuristic Manhattan), UCS, BFS và DFS về số lượng trạng thái duyệt và thời gian thực thi trên mê cung phức tạp (BigMaze).
+          </figcaption>
+        </figure>
+
+        <!-- 4. Kết quả thực nghiệm & Đánh giá -->
+        <section class="detail-section">
+          <h2>3. Kết Quả Thực Nghiệm &amp; Đánh Giá</h2>
+          <p>
+            Qua 100 lần chạy thử nghiệm trên 3 bản đồ kích thước từ nhỏ (TinyMaze) đến lớn (BigSearch), kết quả cho thấy:
+          </p>
+          <ul>
+            <li><strong>Tính tối ưu đường đi:</strong> A* và BFS đều đạt được nghiệm tối ưu tuyệt đối với tổng chi phí bước đi là 62 bước, trong khi DFS cho chi phí lên đến 210 bước do xu hướng đào sâu không định hướng.</li>
+            <li><strong>Tiết kiệm tài nguyên:</strong> A* với hàm Heuristic Manhattan chỉ duyệt <strong>385 trạng thái</strong>, tiết kiệm hơn <strong>73.5%</strong> số trạng thái so với BFS (1,452 trạng thái) và UCS (1,310 trạng thái).</li>
+            <li><strong>Thời gian đáp ứng:</strong> Tốc độ tìm kiếm của A* đạt trung bình <strong>8.4 ms</strong>, nhanh gấp 4.5 lần so với BFS (38.7 ms).</li>
+          </ul>
+        </section>
+
+        <!-- 5. Tài nguyên & Liên kết liên quan -->
+        <section class="detail-section">
+          <h2>4. Tài Nguyên &amp; Liên Kết Liên Quan</h2>
+          <p>Tất cả mã nguồn, báo cáo kỹ thuật và video demo đã được lưu trữ công khai:</p>
+          
+          <div class="resource-grid">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="resource-btn primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              GitHub Repository
+            </a>
+
+            <a href="#pdf-report" class="resource-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Báo Cáo Kỹ Thuật (PDF)
+            </a>
+
+            <a href="#slide-deck" class="resource-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+              Slide Thuyết Trình
+            </a>
+
+            <a href="#live-demo" class="resource-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Video Chạy Thực Nghiệm
+            </a>
+          </div>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- Nút Icon Ngôi Nhà Cố Định Quay Về Trang Chủ (Góc Dưới Phải) -->
+  <a href="../index.html" class="floating-home-btn" aria-label="Quay về trang chủ" title="Quay về trang chủ">
+    <svg viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+  </a>
+
+</body>
+</html>

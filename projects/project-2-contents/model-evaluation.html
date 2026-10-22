@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đánh Giá Chi Tiết Mô Hình CNN & Phân Tích Lỗi | Đồ Án 2</title>
+  <meta name="description" content="Báo cáo phân tích đường cong ROC, chỉ số AUC và giải thích mô hình qua Grad-CAM">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="project-detail-layout">
+
+  <main class="project-detail-container">
+    <nav class="back-nav" aria-label="Điều hướng quay lại">
+      <a href="../project-2.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Quay lại tổng quan Đồ án 2
+      </a>
+    </nav>
+
+    <article class="detail-card">
+      <header class="detail-header">
+        <h1 class="detail-title">Đánh Giá Chi Tiết Mô Hình CNN &amp; Phân Tích Lỗi Sàng Lọc</h1>
+        <p style="color: var(--text-light); margin-top: 0.35rem; font-size: 0.9rem;">
+          Nội dung chuyên sâu &bull; Thuộc Đồ án 02: Phân loại hình ảnh y tế với Deep CNN
+        </p>
+      </header>
+
+      <div class="detail-body">
+        <section class="detail-section">
+          <h2>1. So Sánh Các Kiến Trúc Mạng Nơ-ron (Backbone Comparison)</h2>
+          <p>
+            Nhóm đã tiến hành thử nghiệm độc lập trên 3 kiến trúc phổ biến để tìm ra điểm cân bằng tối ưu giữa độ chính xác và tốc độ suy luận (Inference Speed):
+          </p>
+          
+          <div style="overflow-x: auto; margin: 1rem 0; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+              <thead>
+                <tr style="background-color: var(--bg-subtle); border-bottom: 2px solid var(--border-color);">
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Mô hình Backbone</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Số tham số</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Độ chính xác (Accuracy)</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Độ nhạy (Recall)</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">AUC-ROC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 0.6rem 0.85rem; font-weight: 600;">Custom 5-Layer CNN</td>
+                  <td style="padding: 0.6rem 0.85rem;">2.1 Triệu</td>
+                  <td style="padding: 0.6rem 0.85rem;">89.2%</td>
+                  <td style="padding: 0.6rem 0.85rem;">87.4%</td>
+                  <td style="padding: 0.6rem 0.85rem;">0.924</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color); background-color: var(--bg-subtle);">
+                  <td style="padding: 0.6rem 0.85rem; font-weight: 600;">VGG-16 (Pretrained)</td>
+                  <td style="padding: 0.6rem 0.85rem;">138 Triệu</td>
+                  <td style="padding: 0.6rem 0.85rem;">94.8%</td>
+                  <td style="padding: 0.6rem 0.85rem;">95.2%</td>
+                  <td style="padding: 0.6rem 0.85rem;">0.968</td>
+                </tr>
+                <tr style="background-color: #ecfdf5;">
+                  <td style="padding: 0.6rem 0.85rem; font-weight: 700; color: #065f46;">ResNet-50 (Chọn lựa)</td>
+                  <td style="padding: 0.6rem 0.85rem; font-weight: bold;">25.6 Triệu</td>
+                  <td style="padding: 0.6rem 0.85rem; font-weight: bold; color: #047857;">98.4%</td>
+                  <td style="padding: 0.6rem 0.85rem; font-weight: bold; color: #047857;">99.1%</td>
+                  <td style="padding: 0.6rem 0.85rem; font-weight: bold; color: #047857;">0.994</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="detail-section">
+          <h2>2. Phân Tích Lỗi Sàng Lọc (Error Analysis)</h2>
+          <p>
+            Phân tích 14 ca False Negative (mô hình dự đoán bình thường nhưng thực tế có bệnh lý):
+          </p>
+          <ul>
+            <li><strong>Nguyên nhân chính (10/14 ca):</strong> Các đám mờ thâm nhiễm có kích thước quá nhỏ (&lt; 5mm) hoặc bị che khuất một phần bởi bóng xương sườn hoặc bóng tim.</li>
+            <li><strong>Hướng giải quyết:</strong> Áp dụng thêm kỹ thuật Multi-scale Feature Pyramid Network (FPN) và tăng kích thước ảnh đầu vào lên 448x448 ở phiên bản tiếp theo.</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <!-- Nút Icon Ngôi Nhà Cố Định Quay Về Trang Chủ (Góc Dưới Phải) -->
+  <a href="../../index.html" class="floating-home-btn" aria-label="Quay về trang chủ" title="Quay về trang chủ">
+    <svg viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+  </a>
+
+</body>
+</html>

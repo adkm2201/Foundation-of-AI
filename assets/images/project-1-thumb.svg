@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+    <pattern id="grid1" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.8" stroke-opacity="0.45"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg1)"/>
+  <rect width="800" height="450" fill="url(#grid1)"/>
+
+  <!-- Glowing path lines -->
+  <path d="M 120 330 L 250 240 L 400 270 L 520 160 L 680 140" fill="none" stroke="#2563eb" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/>
+  <path d="M 120 330 L 250 240 L 400 270 L 520 160 L 680 140" fill="none" stroke="url(#pathGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Explored branches -->
+  <path d="M 120 330 L 190 380 L 320 390" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 250 240 L 320 150 L 440 130" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 400 270 L 480 340 L 610 320" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M 520 160 L 590 230" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Explored Nodes -->
+  <circle cx="190" cy="380" r="8" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <circle cx="320" cy="390" r="8" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <circle cx="320" cy="150" r="8" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <circle cx="440" cy="130" r="8" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <circle cx="480" cy="340" r="8" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <circle cx="610" cy="320" r="8" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+  <circle cx="590" cy="230" r="8" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+
+  <!-- Optimal Path Nodes -->
+  <!-- Start -->
+  <circle cx="120" cy="330" r="18" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
+  <circle cx="120" cy="330" r="8" fill="#38bdf8"/>
+  <text x="120" y="370" fill="#94a3b8" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" text-anchor="middle">START (A)</text>
+
+  <!-- Node B -->
+  <circle cx="250" cy="240" r="14" fill="#0f172a" stroke="#60a5fa" stroke-width="2.5"/>
+  <circle cx="250" cy="240" r="6" fill="#60a5fa"/>
+  <rect x="235" y="195" width="60" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="265" y="210" fill="#38bdf8" font-family="monospace" font-size="11" text-anchor="middle">f(n)=14</text>
+
+  <!-- Node C -->
+  <circle cx="400" cy="270" r="14" fill="#0f172a" stroke="#60a5fa" stroke-width="2.5"/>
+  <circle cx="400" cy="270" r="6" fill="#60a5fa"/>
+  <rect x="385" y="225" width="60" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="415" y="240" fill="#38bdf8" font-family="monospace" font-size="11" text-anchor="middle">f(n)=19</text>
+
+  <!-- Node D -->
+  <circle cx="520" cy="160" r="14" fill="#0f172a" stroke="#818cf8" stroke-width="2.5"/>
+  <circle cx="520" cy="160" r="6" fill="#818cf8"/>
+  <rect x="505" y="115" width="60" height="22" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="535" y="130" fill="#818cf8" font-family="monospace" font-size="11" text-anchor="middle">f(n)=22</text>
+
+  <!-- Goal Node -->
+  <circle cx="680" cy="140" r="22" fill="#0f172a" stroke="#10b981" stroke-width="3"/>
+  <circle cx="680" cy="140" r="10" fill="#10b981"/>
+  <text x="680" y="185" fill="#34d399" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" text-anchor="middle">GOAL (G)</text>
+
+  <!-- Badge Header -->
+  <g transform="translate(40, 40)">
+    <rect width="250" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="22" cy="20" r="6" fill="#38bdf8"/>
+    <text x="38" y="25" fill="#f8fafc" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700">A* SEARCH ALGORITHM</text>
+  </g>
+  <g transform="translate(630, 40)">
+    <rect width="130" height="36" rx="6" fill="#0369a1" fill-opacity="0.3" stroke="#0284c7" stroke-width="1"/>
+    <text x="65" y="23" fill="#38bdf8" font-family="monospace" font-size="12" font-weight="600" text-anchor="middle">OPTIMAL PATH</text>
+  </g>
+</svg>

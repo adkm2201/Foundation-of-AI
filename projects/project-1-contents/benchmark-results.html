@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Báo Cáo Benchmark & Kết Quả Chi Tiết | Đồ Án 1</title>
+  <meta name="description" content="Bảng số liệu kiểm nghiệm định lượng trên các bản đồ Pacman">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="project-detail-layout">
+
+  <main class="project-detail-container">
+    <nav class="back-nav" aria-label="Điều hướng quay lại">
+      <a href="../project-1.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Quay lại tổng quan Đồ án 1
+      </a>
+    </nav>
+
+    <article class="detail-card">
+      <header class="detail-header">
+        <h1 class="detail-title">Báo Cáo Benchmark &amp; Kết Quả Kiểm Thử Định Lượng</h1>
+        <p style="color: var(--text-light); margin-top: 0.35rem; font-size: 0.9rem;">
+          Nội dung chuyên sâu &bull; Thuộc Đồ án 01: Giải thuật tìm kiếm &amp; Pacman Agent
+        </p>
+      </header>
+
+      <div class="detail-body">
+        <section class="detail-section">
+          <h2>1. Cấu Hình Phần Cứng &amp; Môi Trường Thử Nghiệm</h2>
+          <p>
+            Tất cả các bài kiểm tra được chạy độc lập 50 lần liên tiếp để lấy giá trị trung bình trên hệ thống thử nghiệm:
+          </p>
+          <ul>
+            <li><strong>CPU:</strong> AMD Ryzen 7 5800H @ 3.20GHz (8 cores, 16 threads)</li>
+            <li><strong>RAM:</strong> 16GB DDR4 3200MHz</li>
+            <li><strong>Hệ điều hành:</strong> Windows 11 64-bit / Python 3.10.11</li>
+          </ul>
+        </section>
+
+        <section class="detail-section">
+          <h2>2. Bảng Thống Kê Số Liệu Trên Bản Đồ BigSearch</h2>
+          <p>Dưới đây là chi tiết các chỉ số đo đạc trên bản đồ mê cung phức tạp nhất:</p>
+          
+          <div style="overflow-x: auto; margin: 1rem 0; border: 2px solid var(--border-color); border-radius: var(--radius-sm);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+              <thead>
+                <tr style="background-color: var(--bg-subtle); border-bottom: 2px solid var(--border-color);">
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Thuật toán</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Chi phí đường đi</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Số nút duyệt (Nodes)</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Bộ nhớ đỉnh (Peak RAM)</th>
+                  <th style="padding: 0.65rem 0.85rem; font-weight: 700; color: var(--text-main);">Thời gian TB (ms)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 0.6rem 0.85rem; font-weight: 600;">DFS (Depth-First)</td>
+                  <td style="padding: 0.6rem 0.85rem; color: #b91c1c; font-weight: bold;">210 bước</td>
+                  <td style="padding: 0.6rem 0.85rem;">1,820</td>
+                  <td style="padding: 0.6rem 0.85rem;">18.4 MB</td>
+                  <td style="padding: 0.6rem 0.85rem;">45.2 ms</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color); background-color: var(--bg-subtle);">
+                  <td style="padding: 0.6rem 0.85rem; font-weight: 600;">BFS (Breadth-First)</td>
+                  <td style="padding: 0.6rem 0.85rem; color: #047857; font-weight: bold;">62 bước</td>
+                  <td style="padding: 0.6rem 0.85rem;">1,452</td>
+                  <td style="padding: 0.6rem 0.85rem;">42.1 MB</td>
+                  <td style="padding: 0.6rem 0.85rem;">38.7 ms</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 0.6rem 0.85rem; font-weight: 600;">UCS (Uniform-Cost)</td>
+                  <td style="padding: 0.6rem 0.85rem; color: #047857; font-weight: bold;">62 bước</td>
+                  <td style="padding: 0.6rem 0.85rem;">1,310</td>
+                  <td style="padding: 0.6rem 0.85rem;">39.8 MB</td>
+                  <td style="padding: 0.6rem 0.85rem;">34.1 ms</td>
+                </tr>
+                <tr style="background-color: #ecfdf5;">
+                  <td style="padding: 0.6rem 0.85rem; font-weight: 700; color: #065f46;">A* (Manhattan)</td>
+                  <td style="padding: 0.6rem 0.85rem; color: #047857; font-weight: bold;">62 bước (Tối ưu)</td>
+                  <td style="padding: 0.6rem 0.85rem; color: #047857; font-weight: bold;">385 (-73.5%)</td>
+                  <td style="padding: 0.6rem 0.85rem; font-weight: bold;">12.2 MB</td>
+                  <td style="padding: 0.6rem 0.85rem; color: #047857; font-weight: bold;">8.4 ms (Nhanh nhất)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <!-- Nút Icon Ngôi Nhà Cố Định Quay Về Trang Chủ (Góc Dưới Phải) -->
+  <a href="../../index.html" class="floating-home-btn" aria-label="Quay về trang chủ" title="Quay về trang chủ">
+    <svg viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+  </a>
+
+</body>
+</html>

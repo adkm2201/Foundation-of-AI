@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiến Trúc Hệ Thống & Cấu Trúc Dữ Liệu | Đồ Án 1</title>
+  <meta name="description" content="Chi tiết thiết kế kiến trúc và cấu trúc dữ liệu Frontier cho thuật toán A*">
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="project-detail-layout">
+
+  <main class="project-detail-container">
+    <nav class="back-nav" aria-label="Điều hướng quay lại">
+      <a href="../project-1.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Quay lại tổng quan Đồ án 1
+      </a>
+    </nav>
+
+    <article class="detail-card">
+      <header class="detail-header">
+        <h1 class="detail-title">Kiến Trúc Hệ Thống &amp; Cấu Trúc Dữ Liệu Frontier</h1>
+        <p style="color: var(--text-light); margin-top: 0.35rem; font-size: 0.9rem;">
+          Nội dung chuyên sâu &bull; Thuộc Đồ án 01: Giải thuật tìm kiếm &amp; Pacman Agent
+        </p>
+      </header>
+
+      <div class="detail-body">
+        <section class="detail-section">
+          <h2>1. Cấu Trúc Dữ Liệu Priority Queue Cho Frontier</h2>
+          <p>
+            Để đạt được tốc độ thực thi O(log N) cho mỗi thao tác thêm và lấy nút có hàm lượng chi phí f(n) nhỏ nhất, chúng tôi sử dụng Min-Heap nhị phân (Binary Heap qua thư viện <code>heapq</code> trong Python):
+          </p>
+          <ul>
+            <li><strong>Mỗi phần tử trong Frontier:</strong> Được lưu dưới dạng Tuple <code>(priority, count, state, path, cost)</code>, trong đó <code>priority = g(n) + h(n)</code>.</li>
+            <li><strong>Biến đếm `count`:</strong> Dùng làm bộ phân giải khi có sự trùng lặp độ ưu tiên (tie-breaker), đảm bảo tính ổn định FIFO và không so sánh trực tiếp các đối tượng trạng thái không có thứ tự.</li>
+            <li><strong>Closed Set (Tập đã thăm):</strong> Sử dụng bảng băm <code>set()</code> với hàm băm tọa độ <code>(x, y)</code> để đạt độ phức tạp tìm kiếm O(1).</li>
+          </ul>
+        </section>
+
+        <section class="detail-section">
+          <h2>2. Xử Lý Heuristic Cho Bài Toán Nhiều Hạt Thức Ăn (Corners Problem)</h2>
+          <p>
+            Khi bài toán yêu cầu Pacman ăn hết 4 góc bản đồ, không gian trạng thái mở rộng thành <code>(x, y, (góc_1_đã_ăn, góc_2_đã_ăn, góc_3_đã_ăn, góc_4_đã_ăn))</code>:
+          </p>
+          <ul>
+            <li><strong>Hàm Heuristic cơ bản:</strong> Khoảng cách Manhattan từ vị trí hiện tại đến góc chưa ăn gần nhất. (Hợp lệ nhưng ước lượng còn lỏng lẻo).</li>
+            <li><strong>Hàm Heuristic nâng cao (Cây khung nhỏ nhất - MST):</strong> Tính tổng khoảng cách Manhattan đến góc gần nhất cộng với trọng số cây khung nhỏ nhất nối tất cả các góc còn lại. Hàm này duy trì tính nhất quán (Consistent) và giảm số nút mở rộng từ 1,940 xuống chỉ còn 540 nút.</li>
+          </ul>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <!-- Nút Icon Ngôi Nhà Cố Định Quay Về Trang Chủ (Góc Dưới Phải) -->
+  <a href="../../index.html" class="floating-home-btn" aria-label="Quay về trang chủ" title="Quay về trang chủ">
+    <svg viewBox="0 0 24 24">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+  </a>
+
+</body>
+</html>
